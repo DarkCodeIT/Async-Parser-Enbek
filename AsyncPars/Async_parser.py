@@ -11,7 +11,7 @@ tasks_get_data = []
 
 async def chunk_list(lst: list, num: int) -> list:
     size = len(lst) // num
-    return [lst[i * size: (i + 1) * size] for i in range(num)]
+    return tuple(lst[i * size: (i + 1) * size] for i in range(num))
 
 async def random_user_agent():
     header = Headers(
@@ -162,7 +162,7 @@ async def main() -> None:
     ic("COMPLETE")
     
     #создаем дамп данных
-    async with aiofiles.open("Collected_data.json", 'w', encoding='utf-8') as file:
+    with aiofiles.open("Collected_data.json", 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False)
 
 
